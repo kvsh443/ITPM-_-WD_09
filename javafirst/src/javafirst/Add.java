@@ -15,10 +15,12 @@ public class Add {
 			System.out.print("Enter Number2: ");
 			int num2 = sc.nextInt();
 			
-			System.out.println("Sum:                                              "+(num1+num2));
+			System.out.println("Sum: "+(num1+num2));
 			sc.close();
 			
 			System.out.println("This one is baka! ");
+			
+			
 			}
 
 }
