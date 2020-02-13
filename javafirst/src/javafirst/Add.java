@@ -17,6 +17,8 @@ public class Add {
 			
 			System.out.println("Sum:                                              "+(num1+num2));
 			sc.close();
+			
+			System.out.println("This one is baka! ");
 			}
 
 }
