@@ -1,2 +1,3 @@
 
-web: python ProjectXcpp/\server.py
+web: python Java/\server.py
+web: python Cpp/\server.py
