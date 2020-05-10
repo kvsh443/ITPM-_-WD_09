@@ -116,13 +116,13 @@ class InheritanceComplexityMeasurer:
                 self.ndi.append(dir_inh)
                 self.nidi.append(indir_inh)
 
-                tivalue = len(self.nidi) + len(self.ndi)
+                tivalue = dir_inh + indir_inh
+
+                self.ti.append(tivalue)
                 if tivalue >= 3:
                     self.final_result.append(4)
                 else:
                     self.final_result.append(tivalue)
-                self.ti.append(tivalue)
-                self.final_result.append(8)
 
             else:
                 self.final_result.append(0)
