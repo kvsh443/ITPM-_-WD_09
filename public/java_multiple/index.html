@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Complexity Measuring For Multiple Files</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-mfizz/2.4.1/font-mfizz.min.css">
+    <style>
+        pre {
+            border: 0;
+            padding: 0px;
+            margin: 0px;
+            background-color: transparent;
+        }
+
+        .pre1 {
+            border: 0;
+            padding: 30px;
+            margin: 0px;
+            font-family: monospace;
+            background-color: #F4F4F4;
+        }
+
+        .upload {
+            margin-bottom: 10px;
+        }
+
+        .file {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Complexity Measuring Tool</h1>
+            <p>Web-based code complexity measuring tool for multiple files</p>
+            <span class="badge badge-primary">.java ☕</span>
+            <span class="badge badge-warning"> <span class="glyphicon glyphicon-file"></span> Multiple File Upload</span>
+            <span class="badge badge-danger">Size Complexity ✋🏻</span>
+            <span class="badge badge-danger">Variable Complexity 👍🏻</span>
+            <span class="badge badge-danger">Method Complexity ✌🏻</span>
+            <span class="badge badge-danger">Inheritance Complexity 🥱</span>
+            <span class="badge badge-danger">Coupling Complexity 👩🏼‍🤝‍🧑🏻</span>
+            <span class="badge badge-danger">Control Structure Complexity 🤙🏻</span>
+            <span class="badge badge-danger">Total Complexity 🏻</span>
+        </div>
+    </div>
+    <div class="container">
+        <h3>Input your code (Languages : Java)</h3>
+        <span class="badge badge-danger" id="type" name="type"></span>
+        <h2></h2>
+
+        <form action="calculate.php" method="POST">
+            <code><textarea style="width: 100%; height: 250px;" name="code" id="editor" required></textarea></code>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col" style="margin-top: 10px;">
+                        <blockquote>
+                            <footer>
+                                Select Multiple <b>files</b> from your computer by PRESSING <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVR4nO2YUW7DIAyG/05TDjW119oB9tB011rXmyyVdom2D4UNpQ4JJhBI/09CkYwhxgHsGCCEEEIIIYQQQlwaAJ8AzgCulbYOwMGsJZhDAQuYq7UaB3Rm8JtmcCFs8b8TgrHeqx3vOl4yGlIkdMDSBiwNHZBgTil/iIrHhhOAY7R1AWijgC9/UMXjSHvU0Uw7UMofpHgc+kWrccDQuCOAr4j5q3eAywmPx8Puhv4dYuVJ7HlVTDgHF0FmjfwA8C7Is5N6yw3pDf2DrOoI+PRC5VH2MBHK+K7siUwsc2+5vny1R+BsnltHtjPPbkQvdN6kaD3eOmP7be/RG4v3raA7hexRoMHdWBvOrgB+cF9849GzWWI/Y5T0pf4hsjugNBgGfdABSxuwNKEOkJKZ0mVqpMtjLbI/nv4IhNYDvvHozdJlapgHGLLl3gnYjSlsPH1r+Pou4lqn7IDfmQ3JSZTtvAOeATrA05e9ApMAqRI1GV9lp7bmVqImI1V2amtSJYoQQgghhBAAN6wWpGKKZOhgAAAAAElFTkSuQmCC"
+                                /> BUTTON to being read as Code.
+                            </footer>
+                            <input class="btn btn-danger file" type="file" id="filetoRead" multiple accept=".java" />
+
+                        </blockquote>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success btn-block btn-lg upload" value="Upload Code"><span
+                                style="margin-right:10px;" class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                            Upload Code </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="warning" class="alert alert-warning" style="visibility: hidden;">
+                <strong>Warning!</strong> This tool is optimized for files with <span class="badge badge-danger">.java</span> extension. Be carefull when using with other file extensions because the results may not be accurate.
+            </div>
+            <br>
+        </form>
+
+
+
+
+
+        <script>
+            document.getElementById("filetoRead").addEventListener("change", function() {
+                var file = this.files;
+
+                if (file.length > 0) {
+                    for (var i = 0; i < file.length; i++) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(evt) {
+                            console.log(evt);
+                            document.getElementById("editor").value += evt.target.result;
+                            var extension = file.item(i).name.match(/\.[0-9a-z]+$/i)
+                            document.getElementById("type").innerText = extension
+                            if (extension != ".java") {
+                                document.getElementById("warning").style.visibility = "visible"
+                            }
+
+                        };
+
+                        reader.onerror = function(evt) {
+                            console.error("An error ocurred reading the file", evt);
+                        };
+
+                        reader.readAsText(file[i], "UTF-8");
+                    }
+                }
+            }, false);
+        </script>
+
+
+
+    </div>
+    <footer>
+        <p class="h3 text-center">
+            <a href="../index.html"> <i class="icon-google-code" style="color:purple"></i> Home </a>
+        </p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Complexity Measuring Tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-mfizz/2.4.1/font-mfizz.min.css">
+    <style>
+        pre {
+            border: 0;
+            padding: 0px;
+            margin: 0px;
+            background-color: transparent;
+        }
+
+        .pre1 {
+            border: 0;
+            padding: 30px;
+            margin: 0px;
+            font-family: monospace;
+            background-color: #F4F4F4;
+        }
+
+        .upload {
+            margin-bottom: 10px;
+        }
+
+        .file {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Complexity Measuring Tool</h1>
+            <p>Web-based code complexity measuring tool</p>
+            <span class="badge badge-primary">.java ☕</span>
+            <span class="badge badge-danger">Size Complexity ✋🏻</span>
+            <span class="badge badge-danger">Variable Complexity 👍🏻</span>
+            <span class="badge badge-danger">Method Complexity ✌🏻</span>
+            <span class="badge badge-danger">Inheritance Complexity 🥱</span>
+            <span class="badge badge-danger">Coupling Complexity 👩🏼‍🤝‍🧑🏻</span>
+            <span class="badge badge-danger">Control Structure Complexity 🤙🏻</span>
+            <span class="badge badge-danger">Total Complexity 🏻</span>
+        </div>
+    </div>
+    <div class="container">
+        <h3>Enter your code (Languages : Java)</h3>
+        <span class="badge badge-danger" id="type" name="type"></span>
+        <h2></h2>
+
+        <form action="calculate.php" method="POST">
+            <code><textarea style="width: 100%; height: 250px;" name="code" id="editor" required></textarea></code>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col" style="margin-top: 10px;">
+                        <blockquote>
+                            <input class="btn btn-danger file" type="file" accept=".java" id="filetoRead" />
+                            <footer>
+                                Select a <b>file</b> from your computer to being read as Code.
+                            </footer>
+                        </blockquote>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success btn-block btn-lg upload" value="Upload Code"><span
+                                style="margin-right:10px;" class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                            Upload Code </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="warning" class="alert alert-warning" style="visibility: hidden;">
+                <strong>Warning!</strong> This tool is optimized for files with <span class="badge badge-danger">.java</span> extension. Be carefull when using with other file extensions because the results may not be accurate.
+            </div>
+            <br>
+        </form>
+
+
+
+
+
+        <script>
+            document.getElementById("filetoRead").addEventListener("change", function() {
+                var file = this.files[0];
+
+                if (file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(evt) {
+                        console.log(evt);
+                        document.getElementById("editor").value = evt.target.result;
+                        var extension = file.name.match(/\.[0-9a-z]+$/i)
+                        document.getElementById("type").innerText = extension
+                        if (extension != ".java") {
+                            document.getElementById("warning").style.visibility = "visible"
+                        }
+
+                    };
+
+                    reader.onerror = function(evt) {
+                        console.error("An error ocurred reading the file", evt);
+                    };
+
+                    reader.readAsText(file, "UTF-8");
+                }
+            }, false);
+        </script>
+
+    </div>
+    <footer>
+  <p class="h3 text-center"> <a href="../index.html"> <i class="icon-google-code" style="color:purple"></i> Home </a></p>
+</footer>
+</body>
+
+</html>
