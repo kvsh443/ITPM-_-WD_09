@@ -15,7 +15,7 @@ api = Api(app)
 
 @app.route("/")
 def hello():
-    return "hello!"
+    return "hello! Pat me at <a href='https://itpm-wd-09.azurewebsites.net/'> here </a>"
 
 class CodeComplexity(Resource):
     def get(self):
